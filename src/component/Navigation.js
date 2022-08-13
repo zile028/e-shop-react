@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Logo from "./Logo";
 import MenuList from "./MenuList";
 
-function Navigation() {
+function Navigation({ cart }) {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container">
@@ -22,9 +22,10 @@ function Navigation() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <MenuList />
-            <li className="nav-item">
+            <li className="nav-item cart-icon">
               <NavLink className="nav-link" to="/cart">
                 <i className="fa-solid fa-cart-shopping"></i>
+                {cart.length > 0 && <span>{cart.length}</span>}
               </NavLink>
             </li>
           </ul>

@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Header from "../component/Header";
 import { useParams } from "react-router-dom";
 
-function ProductPage({ products }) {
+function ProductPage({ products, addToCart }) {
   const { id } = useParams();
   const [product, setProduct] = useState({});
+  const [isAdded, setIsAdded] = useState(false);
   const thumbnail = useRef();
 
   useEffect(() => {
@@ -15,13 +16,21 @@ function ProductPage({ products }) {
   const galleryLayout = () =>
     product.images.map((el, index) => (
       <div className="product-image" key={index}>
-        <img src={el} alt={product.title} onClick={changeThumbnail} />
+        <img src={el} alt={product.title} onMouseOver={changeThumbnail} />
       </div>
     ));
 
   const changeThumbnail = (e) => {
     console.log(e.target.src);
     thumbnail.current.src = e.target.src;
+  };
+
+  const putToCart = () => {
+    addToCart(product);
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 2000);
   };
 
   return (
@@ -59,7 +68,15 @@ function ProductPage({ products }) {
               </tbody>
             </table>
             <p>{product.description}</p>
-            <button className="btn btn-danger w-100">Add to cart</button>
+            {isAdded ? (
+              <p className="alert alert-success py-2 mb-0 text-center">
+                Product is added to cart!
+              </p>
+            ) : (
+              <button className="btn btn-danger py-2 w-100" onClick={putToCart}>
+                Add to cart
+              </button>
+            )}
           </div>
         </div>
       </section>

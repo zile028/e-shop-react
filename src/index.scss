@@ -1,14 +1,40 @@
 body {
   background-color: #ddd;
 }
+
+/***** navbar *****/
+
 .navbar {
   background-color: #ddd;
-}
-.navbar-brand {
-  img {
-    height: 70px;
+  &-brand {
+    img {
+      height: 70px;
+    }
+  }
+  &-nav {
+    font-size: 1.2rem;
+  }
+  .cart-icon {
+    margin-right: 5px;
+    a {
+      position: relative;
+    }
+    span {
+      font-size: 0.8rem;
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      background-color: tomato;
+      color: #fff;
+      // height: 1.5em;
+      padding: 0.1em 0.5em;
+      border-radius: 1.5em;
+    }
   }
 }
+
+/***** header *****/
+
 header {
   min-height: 50vh;
   display: flex;
@@ -94,15 +120,21 @@ footer {
         display: flex;
         gap: 10px;
         margin-top: 20px;
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+        justify-content: flex-start;
       }
       & > img {
         width: 100%;
+        height: 400px;
+        object-fit: contain;
         border-radius: 10px;
       }
     }
   }
   .product-image {
     flex: 1;
+    max-width: 150px;
     img {
       width: 100%;
       height: 100px;
