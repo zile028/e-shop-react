@@ -151,14 +151,26 @@ footer {
 
 /***** cart-page ****/
 
-.cart-page {
-  display: flex;
-  aside {
-    flex: 1;
-    max-width: 300px;
-    margin-right: 20px;
+.cart {
+  &-page {
+    display: flex;
+    aside {
+      flex: 1;
+      max-width: 300px;
+      margin-right: 20px;
+    }
+    article {
+      flex: 1;
+    }
   }
-  article {
-    flex: 1;
+  &-product {
+    img {
+      height: 150px;
+      width: 200px;
+      object-fit: contain;
+    }
+    p {
+      margin: 0;
+    }
   }
 }

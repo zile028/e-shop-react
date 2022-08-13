@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from "react";
+import CartProduct from "../component/CartProduct";
 import Header from "../component/Header";
-import Product from "../component/Product";
 
-function CartPage({ cart }) {
-  const [totalPrice, setTotalPrice] = useState(null);
+const intitialTotal = { price: null, item: null, quantity: null };
+
+function CartPage({ cart, removeFromCart }) {
+  const [total, setTotal] = useState(intitialTotal);
 
   useEffect(() => {
-    let price = 0;
+    let tempTotal = { ...intitialTotal };
     cart.forEach((el) => {
-      price += el.price * el.count;
+      tempTotal.price += el.price * el.count;
+      tempTotal.quantity += el.count;
     });
-    setTotalPrice(price);
-  }, []);
+    tempTotal.item = cart.length;
+    setTotal(tempTotal);
+  }, [cart]);
 
   const productsLayout = () => {
     return cart.map((el, index) => {
       return (
-        <Product product={el} canDelete={true} index={index} key={el.id} />
+        <CartProduct
+          product={el}
+          removeFromCart={removeFromCart}
+          index={index}
+          key={el.id}
+        />
       );
     });
   };
@@ -28,16 +37,20 @@ function CartPage({ cart }) {
         <aside>
           <ul className="list-group">
             <li className="list-group-item">
-              Total item: <span>{cart.length}</span>{" "}
+              Total item: <span>{total.item}</span>{" "}
             </li>
             <li className="list-group-item">
-              Total price: <span>${totalPrice}</span>
+              Total quantity: <span>{total.quantity}</span>{" "}
+            </li>
+            <li className="list-group-item">
+              Total price: <span>${total.price}</span>
+            </li>
+            <li className="list-group-item">
+              <button className="btn btn-danger w-100">CHECKOUT</button>
             </li>
           </ul>
         </aside>
-        <article className="products-wraper products-row-3">
-          {productsLayout()}
-        </article>
+        <article className="bg-light p-2 rounded-2">{productsLayout()}</article>
       </section>
     </>
   );

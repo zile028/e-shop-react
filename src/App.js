@@ -32,6 +32,17 @@ function App() {
     setCart(copyCart);
   };
 
+  const removeFromCart = (index) => {
+    let tempCart = [...cart];
+    if (tempCart[index].count < 2) {
+      tempCart.splice(index, 1);
+    } else {
+      tempCart[index].count--;
+    }
+
+    setCart(tempCart);
+  };
+
   return (
     <>
       <Navigation cart={cart} />
@@ -42,7 +53,10 @@ function App() {
           path="/shop/:id"
           element={<ProductPage products={db} addToCart={addToCart} />}
         />
-        <Route path="/cart" element={<CartPage cart={cart} />} />
+        <Route
+          path="/cart"
+          element={<CartPage cart={cart} removeFromCart={removeFromCart} />}
+        />
       </Routes>
       <Footer />
     </>
