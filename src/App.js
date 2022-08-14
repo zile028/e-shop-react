@@ -5,28 +5,42 @@ import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
 import ProductPage from "./pages/ProductPage";
 import db from "./db";
-import { useState } from "react";
-import { useEffect } from "react";
 import CartPage from "./pages/CartPage";
+import { useEffect, useState } from "react";
 
 function App() {
   const [cart, setCart] = useState([]);
 
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
+
   const addToCart = (product) => {
-    let cartItemIndex = null;
-    let chekCart = cart.find((el, index) => {
-      cartItemIndex = index;
+    let itemCartIndex = null;
+    let copyCart = [...cart];
+    let checkCart = cart.find((el, index) => {
+      itemCartIndex = index;
       return el.id === product.id;
     });
 
-    if (chekCart) {
-      let tempCart = [...cart];
-      tempCart[cartItemIndex].count++;
-      setCart(tempCart);
+    if (checkCart) {
+      copyCart[itemCartIndex].count++;
     } else {
       product.count = 1;
-      setCart([...cart, product]);
+      copyCart.push(product);
     }
+    setCart(copyCart);
+  };
+
+  const removeFromCart = (index) => {
+    let tempCart = [...cart];
+    if (tempCart[index].count < 2) {
+      tempCart.splice(index, 1);
+    } else {
+      tempCart[index].count--;
+    }
+
+    setCart(tempCart);
   };
 
   return (
@@ -39,7 +53,10 @@ function App() {
           path="/shop/:id"
           element={<ProductPage products={db} addToCart={addToCart} />}
         />
-        <Route path="/cart" element={<CartPage cart={cart} />} />
+        <Route
+          path="/cart"
+          element={<CartPage cart={cart} removeFromCart={removeFromCart} />}
+        />
       </Routes>
       <Footer />
     </>

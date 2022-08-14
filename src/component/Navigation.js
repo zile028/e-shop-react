@@ -22,7 +22,7 @@ function Navigation({ cart }) {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <MenuList />
-            <li className="nav-item cart-icon">
+            <li className="cart-icon nav-item">
               <NavLink className="nav-link" to="/cart">
                 <i className="fa-solid fa-cart-shopping"></i>
                 {cart.length > 0 && <span>{cart.length}</span>}

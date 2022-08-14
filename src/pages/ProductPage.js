@@ -20,9 +20,14 @@ function ProductPage({ products, addToCart }) {
       </div>
     ));
 
-  const changeThumbnail = (e) => {
-    console.log(e.target.src);
-    thumbnail.current.src = e.target.src;
+  const changeThumbnail = (e) => (thumbnail.current.src = e.target.src);
+
+  const onClickAddToCart = () => {
+    addToCart(product);
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 2000);
   };
 
   const putToCart = () => {
@@ -69,11 +74,14 @@ function ProductPage({ products, addToCart }) {
             </table>
             <p>{product.description}</p>
             {isAdded ? (
-              <p className="alert alert-success py-2 mb-0 text-center">
-                Product is added to cart!
+              <p className="alert alert-success py-2 m-0 text-center">
+                Product is adedd to cart!
               </p>
             ) : (
-              <button className="btn btn-danger py-2 w-100" onClick={putToCart}>
+              <button
+                className="btn btn-danger py-2 w-100"
+                onClick={onClickAddToCart}
+              >
                 Add to cart
               </button>
             )}
