@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import CartProduct from "../component/CartProduct";
+import Checkout from "../component/Checkout";
 import Header from "../component/Header";
 
 const intitialTotal = { price: null, item: null, quantity: null };
 
 function CartPage({ cart, removeFromCart }) {
   const [total, setTotal] = useState(intitialTotal);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   useEffect(() => {
     let tempTotal = { ...intitialTotal };
@@ -32,6 +34,7 @@ function CartPage({ cart, removeFromCart }) {
 
   return (
     <>
+      {showCheckout && <Checkout setShowCheckout={setShowCheckout} />}
       <Header title={"my cart"} />
       <section className="cart-page container py-5">
         <aside>
@@ -46,7 +49,12 @@ function CartPage({ cart, removeFromCart }) {
               Total price: <span>${total.price}</span>
             </li>
             <li className="list-group-item">
-              <button className="btn btn-danger w-100">CHECKOUT</button>
+              <button
+                className="btn btn-danger w-100"
+                onClick={() => setShowCheckout(true)}
+              >
+                CHECKOUT
+              </button>
             </li>
           </ul>
         </aside>

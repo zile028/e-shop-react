@@ -23,7 +23,13 @@ function Navigation({ cart }) {
           <ul className="navbar-nav ms-auto">
             <MenuList />
             <li className="cart-icon nav-item">
-              <NavLink className="nav-link" to="/cart">
+              <NavLink
+                className="nav-link"
+                to="/cart"
+                onClick={(e) => {
+                  !cart.length && e.preventDefault();
+                }}
+              >
                 <i className="fa-solid fa-cart-shopping"></i>
                 {cart.length > 0 && <span>{cart.length}</span>}
               </NavLink>

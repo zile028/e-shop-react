@@ -1,15 +1,17 @@
-import { Route, Routes } from "react-router-dom";
+import db from "./db";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Navigation from "./component/Navigation";
 import Footer from "./component/Footer";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
 import ProductPage from "./pages/ProductPage";
-import db from "./db";
 import CartPage from "./pages/CartPage";
-import { useEffect, useState } from "react";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
   const [cart, setCart] = useState([]);
+  const redirect = useNavigate();
 
   useEffect(() => {
     console.log(cart);
@@ -36,6 +38,7 @@ function App() {
     let tempCart = [...cart];
     if (tempCart[index].count < 2) {
       tempCart.splice(index, 1);
+      redirect("/shop");
     } else {
       tempCart[index].count--;
     }
@@ -57,6 +60,7 @@ function App() {
           path="/cart"
           element={<CartPage cart={cart} removeFromCart={removeFromCart} />}
         />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
       <Footer />
     </>
