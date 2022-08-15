@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CartProduct from "../component/CartProduct";
 import Checkout from "../component/Checkout";
 import Header from "../component/Header";
 
 const intitialTotal = { price: null, item: null, quantity: null };
 
-function CartPage({ cart, removeFromCart }) {
+function CartPage({ cart, removeFromCart, clearCart }) {
   const [total, setTotal] = useState(intitialTotal);
   const [showCheckout, setShowCheckout] = useState(false);
+  const redirect = useNavigate();
 
   useEffect(() => {
+    cart.length === 0 && redirect("/shop");
     let tempTotal = { ...intitialTotal };
     cart.forEach((el) => {
       tempTotal.price += el.price * el.count;
@@ -34,7 +37,9 @@ function CartPage({ cart, removeFromCart }) {
 
   return (
     <>
-      {showCheckout && <Checkout setShowCheckout={setShowCheckout} />}
+      {showCheckout && (
+        <Checkout setShowCheckout={setShowCheckout} clearCart={clearCart} />
+      )}
       <Header title={"my cart"} />
       <section className="cart-page container py-5">
         <aside>

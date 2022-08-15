@@ -190,13 +190,48 @@ footer {
   width: 100vw;
   background-color: rgba(#000, 0.5);
   z-index: 2;
+  overflow: hidden;
   form {
+    display: flex;
+    flex-wrap: wrap;
     background-color: #ffff;
     border-radius: 10px;
     padding: 10px;
     width: 280px;
+    gap: 10px;
+    position: relative;
+    left: 100%;
+
+    transform-origin: left bottom;
+    animation-name: from-left;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+
     input {
-      margin-bottom: 10px;
+      width: 100%;
+    }
+    button {
+      flex: 1;
+    }
+  }
+
+  @keyframes from-left {
+    0% {
+      left: 100%;
+      transform: skewX(-20deg);
+    }
+    90% {
+      left: -2%;
+      transform: skewX(-20deg);
+    }
+    95% {
+      transform: skewX(-20deg);
+      left: 2%;
+    }
+    100% {
+      left: 0;
+      transform: skewX(0deg);
     }
   }
 }

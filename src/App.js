@@ -10,7 +10,29 @@ import CartPage from "./pages/CartPage";
 import ContactPage from "./pages/ContactPage";
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([
+    {
+      id: 15,
+      title: "Eau De Perfume Spray",
+      description:
+        "Genuine  Al-Rehab spray perfume from UAE/Saudi Arabia/Yemen High Quality",
+      price: 30,
+      discountPercentage: 10.99,
+      rating: 4.7,
+      stock: 105,
+      brand: "Lord - Al-Rehab",
+      category: "fragrances",
+      thumbnail: "https://dummyjson.com/image/i/products/15/thumbnail.jpg",
+      images: [
+        "https://dummyjson.com/image/i/products/15/1.jpg",
+        "https://dummyjson.com/image/i/products/15/2.jpg",
+        "https://dummyjson.com/image/i/products/15/3.jpg",
+        "https://dummyjson.com/image/i/products/15/4.jpg",
+        "https://dummyjson.com/image/i/products/15/thumbnail.jpg",
+      ],
+      count: 1,
+    },
+  ]);
   const redirect = useNavigate();
 
   useEffect(() => {
@@ -24,7 +46,6 @@ function App() {
       itemCartIndex = index;
       return el.id === product.id;
     });
-
     if (checkCart) {
       copyCart[itemCartIndex].count++;
     } else {
@@ -38,13 +59,16 @@ function App() {
     let tempCart = [...cart];
     if (tempCart[index].count < 2) {
       tempCart.splice(index, 1);
-      redirect("/shop");
     } else {
       tempCart[index].count--;
     }
 
+    tempCart.length === 0 && redirect("/shop");
+
     setCart(tempCart);
   };
+
+  const clearCart = () => setCart([]);
 
   return (
     <>
@@ -58,7 +82,13 @@ function App() {
         />
         <Route
           path="/cart"
-          element={<CartPage cart={cart} removeFromCart={removeFromCart} />}
+          element={
+            <CartPage
+              cart={cart}
+              removeFromCart={removeFromCart}
+              clearCart={clearCart}
+            />
+          }
         />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
