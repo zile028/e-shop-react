@@ -153,7 +153,6 @@ footer {
 }
 
 /***** cart-page ****/
-
 .cart {
   &-page {
     display: flex;
@@ -164,6 +163,12 @@ footer {
     }
     article {
       flex: 1;
+    }
+    ul {
+      span {
+        float: right;
+        font-weight: 700;
+      }
     }
   }
   &-product {
@@ -205,7 +210,7 @@ footer {
     transform-origin: left bottom;
     animation-name: from-left;
     animation-duration: 1s;
-    animation-timing-function: linear;
+    animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 
     input {
@@ -222,13 +227,10 @@ footer {
       transform: skewX(-20deg);
     }
     90% {
-      left: -2%;
+      left: -10%;
       transform: skewX(-20deg);
     }
-    95% {
-      transform: skewX(-20deg);
-      left: 2%;
-    }
+
     100% {
       left: 0;
       transform: skewX(0deg);
