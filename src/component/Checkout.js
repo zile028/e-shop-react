@@ -54,7 +54,7 @@ function Checkout({ setShowCheckout, clearCart }) {
 
   return (
     <div className="checkout-wraper">
-      {isFinish ? (
+      {isValid ? (
         <div className="alert alert-success">Successfully!</div>
       ) : (
         <form>

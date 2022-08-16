@@ -235,3 +235,57 @@ footer {
     }
   }
 }
+
+/***** contact *****/
+.contact {
+  &-info {
+    display: grid;
+    grid-template-areas:
+      "address email"
+      "phone phone";
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    & > div {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .box {
+      &-address {
+        grid-area: address;
+      }
+      &-email {
+        grid-area: email;
+      }
+      &-phone {
+        grid-area: phone;
+      }
+    }
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    p {
+      margin: 0;
+    }
+    a {
+      display: block;
+      text-decoration: none;
+      color: #000;
+    }
+    .icon {
+      i {
+        font-size: 1.5rem;
+        border: 2px dotted tomato;
+        border-radius: 50%;
+        line-height: 2em;
+        height: 2em;
+        width: 2em;
+        color: tomato;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
