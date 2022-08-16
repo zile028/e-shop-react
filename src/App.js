@@ -10,29 +10,7 @@ import CartPage from "./pages/CartPage";
 import ContactPage from "./pages/ContactPage";
 
 function App() {
-  const [cart, setCart] = useState([
-    {
-      id: 15,
-      title: "Eau De Perfume Spray",
-      description:
-        "Genuine  Al-Rehab spray perfume from UAE/Saudi Arabia/Yemen High Quality",
-      price: 30,
-      discountPercentage: 10.99,
-      rating: 4.7,
-      stock: 105,
-      brand: "Lord - Al-Rehab",
-      category: "fragrances",
-      thumbnail: "https://dummyjson.com/image/i/products/15/thumbnail.jpg",
-      images: [
-        "https://dummyjson.com/image/i/products/15/1.jpg",
-        "https://dummyjson.com/image/i/products/15/2.jpg",
-        "https://dummyjson.com/image/i/products/15/3.jpg",
-        "https://dummyjson.com/image/i/products/15/4.jpg",
-        "https://dummyjson.com/image/i/products/15/thumbnail.jpg",
-      ],
-      count: 1,
-    },
-  ]);
+  const [cart, setCart] = useState([]);
   const redirect = useNavigate();
 
   useEffect(() => {

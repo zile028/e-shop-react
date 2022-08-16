@@ -1,6 +1,11 @@
 body {
   background-color: #ddd;
 }
+
+section {
+  min-height: 50vh;
+}
+
 /***** navbar ****/
 
 .navbar {
@@ -157,6 +162,7 @@ footer {
 .cart {
   &-page {
     display: flex;
+    align-items: flex-start;
     aside {
       flex: 1;
       max-width: 300px;
@@ -238,6 +244,11 @@ footer {
 
 /***** contact *****/
 .contact {
+  form {
+    textarea {
+      resize: none;
+    }
+  }
   &-info {
     display: grid;
     grid-template-areas:

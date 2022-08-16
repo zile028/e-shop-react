@@ -1,47 +1,113 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../component/Header";
 
 function ContactPage() {
+  const [inputData, setInputData] = useState({
+    fullName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isValid, setIsValid] = useState(true);
+  const [isFinish, setIsFinish] = useState(false);
+
+  const onInputHandelr = (e) => {
+    let copyInputData = { ...inputData };
+    copyInputData[e.target.name] = e.target.value;
+    setInputData(copyInputData);
+  };
+
+  const resetState = () => {
+    setInputData({
+      fullName: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+  };
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+    if (
+      !inputData.fullName ||
+      !inputData.email ||
+      !inputData.message ||
+      !inputData.subject
+    ) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+      setIsFinish(true);
+      setTimeout(() => {
+        setIsFinish(false);
+        resetState();
+      }, 2000);
+    }
+  };
+
   return (
     <>
       <Header title={"Contact us"} />
-      <section className="container py-5">
+      <section className="contact container py-5">
         <div className="row">
           <div className="col-md-6">
-            <form>
-              <div className="row">
-                <div className="col-md-6">
-                  <input
-                    type="text"
-                    name="fullName"
-                    placeholder="Full name"
-                    className="form-control mb-3"
-                  />
-                </div>
-                <div className="col-md-6">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="E-mail"
-                    className="form-control mb-3"
-                  />
-                </div>
+            {isFinish ? (
+              <div className="alert alert-success">
+                <h3>Message is sent!</h3>
               </div>
-              <input
-                type="text"
-                placeholder="Subject"
-                name="subject"
-                className="form-control mb-3"
-              />
-              <textarea
-                name="message"
-                placeholder="Message"
-                cols="30"
-                rows="10"
-                className="form-control mb-3"
-              ></textarea>
-              <button className="btn btn-primary">SEND MESSAGE</button>
-            </form>
+            ) : (
+              <form onSubmit={sendMessage}>
+                <div className="row">
+                  <div className="col-md-6">
+                    <input
+                      type="text"
+                      name="fullName"
+                      placeholder="Full name"
+                      className="form-control mb-3"
+                      onInput={onInputHandelr}
+                      value={inputData.fullName}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="E-mail"
+                      className="form-control mb-3"
+                      onInput={onInputHandelr}
+                      value={inputData.email}
+                    />
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Subject"
+                  name="subject"
+                  className="form-control mb-3"
+                  onInput={onInputHandelr}
+                  value={inputData.subject}
+                />
+                <textarea
+                  name="message"
+                  placeholder="Message"
+                  cols="30"
+                  rows="10"
+                  className="form-control mb-3"
+                  onInput={onInputHandelr}
+                  value={inputData.message}
+                ></textarea>
+                <div className="d-flex">
+                  <button className="btn btn-primary py-2 me-3">
+                    SEND MESSAGE
+                  </button>
+                  {!isValid && (
+                    <div className="alert alert-danger py-2 mb-0 flex-grow-1">
+                      All fields are required!
+                    </div>
+                  )}
+                </div>
+              </form>
+            )}
           </div>
 
           <div className="contact-info col-md-6">
