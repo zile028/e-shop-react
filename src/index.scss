@@ -167,6 +167,12 @@ footer {
       flex: 1;
       max-width: 300px;
       margin-right: 20px;
+      li {
+        font-weight: 700;
+        span {
+          float: right;
+        }
+      }
     }
     article {
       flex: 1;
