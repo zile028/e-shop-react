@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../component/Header";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function ProductPage({ products, addToCart }) {
+function ProductPage({ addToCart }) {
+  const { products } = useSelector((state) => state.products);
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [isAdded, setIsAdded] = useState(false);
@@ -11,7 +13,7 @@ function ProductPage({ products, addToCart }) {
   useEffect(() => {
     let founded = products.find((el) => el.id === parseInt(id));
     setProduct(founded);
-  }, []);
+  }, [products]);
 
   const galleryLayout = () =>
     product.images.map((el, index) => (
@@ -30,17 +32,10 @@ function ProductPage({ products, addToCart }) {
     }, 2000);
   };
 
-  const putToCart = () => {
-    addToCart(product);
-    setIsAdded(true);
-    setTimeout(() => {
-      setIsAdded(false);
-    }, 2000);
-  };
-
   return (
     <>
       <Header title={product.title} />
+
       <section className="single-product container py-5">
         <div className="row align-items-start">
           <div className="col me-2">

@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Header from "../component/Header";
 import Product from "../component/Product";
 
-function ShopPage({ products }) {
+function ShopPage() {
+  const { products } = useSelector((state) => state.products);
   return (
     <>
       <Header title={"shop"} />

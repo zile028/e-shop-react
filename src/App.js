@@ -1,6 +1,6 @@
 import db from "./db";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navigation from "./component/Navigation";
 import Footer from "./component/Footer";
 import HomePage from "./pages/HomePage";
@@ -8,10 +8,18 @@ import ShopPage from "./pages/ShopPage";
 import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
 import ContactPage from "./pages/ContactPage";
+import { useDispatch } from "react-redux";
+import { setProducts } from "./redux/productsSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
   const [cart, setCart] = useState([]);
   const redirect = useNavigate();
+
+  useEffect(() => {
+    dispatch(setProducts(db));
+  }, []);
 
   const addToCart = (product) => {
     let itemCartIndex = null;
@@ -48,11 +56,11 @@ function App() {
     <>
       <Navigation cart={cart} />
       <Routes>
-        <Route path="/" element={<HomePage products={db} />} />
-        <Route path="/shop" element={<ShopPage products={db} />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopPage />} />
         <Route
           path="/shop/:id"
-          element={<ProductPage products={db} addToCart={addToCart} />}
+          element={<ProductPage addToCart={addToCart} />}
         />
         <Route
           path="/cart"

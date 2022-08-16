@@ -1,8 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Header from "../component/Header";
 import Product from "../component/Product";
 
-function HomePage({ products }) {
+function HomePage() {
+  const { products } = useSelector((state) => state.products);
+
   const randomProducts = () => {
     let copyProducts = [...products];
     let arr = [];
@@ -21,7 +24,9 @@ function HomePage({ products }) {
       <Header title={"Welcome to e-shop"} />
       <section className="products container py-5">
         <h2 className="text-center mb-5">best sellers</h2>
-        <div className="products-wraper products-row-3">{randomProducts()}</div>
+        <div className="products-wraper products-row-3">
+          {products.length && randomProducts()}
+        </div>
       </section>
     </>
   );
