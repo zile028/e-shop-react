@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import CartProduct from "../component/CartProduct";
 import Checkout from "../component/Checkout";
 import Header from "../component/Header";
 
 const intitialTotal = { price: null, item: null, quantity: null };
 
-function CartPage({ cart, removeFromCart, clearCart }) {
+function CartPage({ removeFromCart, clearCart }) {
+  const { cart } = useSelector((state) => state.cartStore);
+
   const [total, setTotal] = useState(intitialTotal);
   const [showCheckout, setShowCheckout] = useState(false);
   const redirect = useNavigate();

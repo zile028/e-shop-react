@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../component/Header";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
 
-function ProductPage({ addToCart }) {
-  const { products } = useSelector((state) => state.products);
+function ProductPage() {
+  const { products } = useSelector((state) => state.productsStore);
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [isAdded, setIsAdded] = useState(false);
@@ -25,7 +27,8 @@ function ProductPage({ addToCart }) {
   const changeThumbnail = (e) => (thumbnail.current.src = e.target.src);
 
   const onClickAddToCart = () => {
-    addToCart(product);
+    dispatch(addToCart(product));
+    // addToCart(product);
     setIsAdded(true);
     setTimeout(() => {
       setIsAdded(false);

@@ -11,6 +11,6 @@ const productsSlice = createSlice({
     },
   },
 });
-const { actions, reducer } = productsSlice;
-export const { setProducts } = actions;
-export default reducer;
+// const { actions, reducer } = productsSlice;
+export const { setProducts } = productsSlice.actions;
+export default productsSlice.reducer;
