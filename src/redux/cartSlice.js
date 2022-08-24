@@ -7,8 +7,19 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      console.log(action);
-      state.cart.push(action.payload);
+      let cartIndex = null;
+      console.log(action.payload);
+      let product = { ...action.payload };
+      let founded = state.cart.find((el, index) => {
+        cartIndex = index;
+        return (el.id = parseInt(product.id));
+      });
+      if (founded) {
+        state.cart[cartIndex].count = state.cart[cartIndex].count + 1;
+      } else {
+        product.count = 1;
+        state.cart.push(product);
+      }
     },
   },
 });

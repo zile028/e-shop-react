@@ -4,7 +4,7 @@ import Header from "../component/Header";
 import Product from "../component/Product";
 
 function ShopPage() {
-  const { products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.productsStore);
   return (
     <>
       <Header title={"shop"} />

@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "./Logo";
 import MenuList from "./MenuList";
 import { useSelector } from "react-redux";
+import CartList from "./CartList";
 
 function Navigation() {
   const { cart } = useSelector((state) => state.cartStore);
-
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
   return (
     <nav className="navbar navbar-expand-lg">
+      <CartList />
       <div className="container">
         <Logo />
         <button

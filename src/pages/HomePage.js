@@ -4,7 +4,7 @@ import Header from "../component/Header";
 import Product from "../component/Product";
 
 function HomePage() {
-  const { products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.productsStore);
 
   const randomProducts = () => {
     let copyProducts = [...products];
