@@ -16,6 +16,9 @@ section {
       height: 70px;
     }
   }
+  &-collapse {
+    position: relative;
+  }
   &-nav {
     font-size: 1.2rem;
   }
@@ -308,7 +311,37 @@ footer {
 }
 
 .cart-list {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #000000;
+  color: #fff;
+  padding: 10px;
+  height: 300px;
+  width: 280px;
+  transform-origin: top center;
+}
+
+@keyframes inAnimation {
+  0% {
+    transform: scale(1, 0);
+    opacity: 0;
+  }
+  // 60% {
+  //   transform: scale(1.2);
+  //   opacity: 1;
+  // }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes outAnimation {
+  0% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1, 0);
+    opacity: 0;
+  }
 }

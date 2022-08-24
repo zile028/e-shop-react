@@ -1,18 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "./Logo";
 import MenuList from "./MenuList";
 import { useSelector } from "react-redux";
 import CartList from "./CartList";
+import { useDelayUnmount } from "../hooks/useDelayUnmount";
 
 function Navigation() {
   const { cart } = useSelector((state) => state.cartStore);
+  const [isMounted, setIsMounted] = useState(false);
+
+  const shouldRenderChild = useDelayUnmount(isMounted, 300);
+  const mountedStyle = { animation: "inAnimation 300ms linear" };
+  const unmountedStyle = { animation: "outAnimation 310ms linear" };
+
   useEffect(() => {
     console.log(cart);
   }, [cart]);
+
   return (
     <nav className="navbar navbar-expand-lg">
-      <CartList />
       <div className="container">
         <Logo />
         <button
@@ -27,6 +34,9 @@ function Navigation() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
+          {shouldRenderChild && (
+            <CartList style={isMounted ? mountedStyle : unmountedStyle} />
+          )}
           <ul className="navbar-nav ms-auto">
             <MenuList />
             <li className="cart-icon nav-item">
@@ -34,7 +44,8 @@ function Navigation() {
                 className="nav-link"
                 to="/cart"
                 onClick={(e) => {
-                  !cart.length && e.preventDefault();
+                  e.preventDefault();
+                  setIsMounted(!isMounted);
                 }}
               >
                 <i className="fa-solid fa-cart-shopping"></i>
