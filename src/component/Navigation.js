@@ -16,7 +16,6 @@ function Navigation() {
   const unmountedStyle = { animation: "outAnimation 310ms linear" };
 
   useEffect(() => {
-    console.log(loc.pathname);
     setIsMounted(false);
   }, [loc.pathname]);
 
@@ -47,7 +46,7 @@ function Navigation() {
                 to="/cart"
                 onClick={(e) => {
                   e.preventDefault();
-                  setIsMounted(!isMounted);
+                  cart.length && setIsMounted(!isMounted);
                 }}
               >
                 <i className="fa-solid fa-cart-shopping"></i>

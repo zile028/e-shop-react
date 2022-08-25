@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { changeAmount } from "../redux/cartSlice";
+
+import Amount from "./Amount/Amount";
 
 function CartList({ style }) {
   const { cart } = useSelector((state) => state.cartStore);
-  const dispatch = useDispatch();
-
-  const onClickChangeAmount = (amount, index) => {
-    dispatch(changeAmount({ amount, index }));
-  };
-
   const list = cart.map((el, index) => {
     return (
       <div className="cart-list-ads" key={index}>
@@ -19,10 +14,10 @@ function CartList({ style }) {
           <p>{el.title}</p>
           <p>${el.price}</p>
         </div>
-        <div>
-          <span onClick={() => onClickChangeAmount(1, index)}>+</span>
+        <div className="amount-wrapper">
+          <Amount increment={1} index={index} />
           <p>{el.count}</p>
-          <span onClick={() => onClickChangeAmount(-1, index)}>-</span>
+          <Amount increment={-1} index={index} />
         </div>
       </div>
     );

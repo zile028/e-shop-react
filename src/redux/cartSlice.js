@@ -7,7 +7,7 @@ const cartSlice = createSlice({
   },
   reducers: {
     changeAmount: (state, { payload }) => {
-      state.cart[payload.index].count += payload.amount;
+      state.cart[payload.index].count += payload.increment;
       if (state.cart[payload.index].count === 0) {
         state.cart.splice(payload.index, 1);
       }
@@ -29,8 +29,11 @@ const cartSlice = createSlice({
         state.cart.push(product);
       }
     },
+    removeFromCart: (state, { payload }) => {
+      state.cart.splice(payload, 1);
+    },
   },
 });
 
-export const { addToCart, changeAmount } = cartSlice.actions;
+export const { addToCart, changeAmount, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
