@@ -6,6 +6,12 @@ const cartSlice = createSlice({
     cart: [],
   },
   reducers: {
+    changeAmount: (state, { payload }) => {
+      state.cart[payload.index].count += payload.amount;
+      if (state.cart[payload.index].count === 0) {
+        state.cart.splice(payload.index, 1);
+      }
+    },
     addToCart: (state, action) => {
       let cartIndex = null;
       let product = { ...action.payload };
@@ -15,13 +21,16 @@ const cartSlice = createSlice({
       });
       if (founded) {
         state.cart[cartIndex].count = state.cart[cartIndex].count + 1;
+        state.cart[cartIndex].total =
+          state.cart[cartIndex].count * state.cart[cartIndex].price;
       } else {
         product.count = 1;
+        product.total = product.price;
         state.cart.push(product);
       }
     },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, changeAmount } = cartSlice.actions;
 export default cartSlice.reducer;

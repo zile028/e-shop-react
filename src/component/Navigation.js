@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import MenuList from "./MenuList";
 import { useSelector } from "react-redux";
@@ -9,14 +9,16 @@ import { useDelayUnmount } from "../hooks/useDelayUnmount";
 function Navigation() {
   const { cart } = useSelector((state) => state.cartStore);
   const [isMounted, setIsMounted] = useState(false);
+  const loc = useLocation();
 
   const shouldRenderChild = useDelayUnmount(isMounted, 300);
   const mountedStyle = { animation: "inAnimation 300ms linear" };
   const unmountedStyle = { animation: "outAnimation 310ms linear" };
 
   useEffect(() => {
-    console.log(cart);
-  }, [cart]);
+    console.log(loc.pathname);
+    setIsMounted(false);
+  }, [loc.pathname]);
 
   return (
     <nav className="navbar navbar-expand-lg">
