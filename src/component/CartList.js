@@ -6,6 +6,7 @@ import Amount from "./Amount/Amount";
 
 function CartList({ style }) {
   const { cart } = useSelector((state) => state.cartStore);
+
   const list = cart.map((el, index) => {
     return (
       <div className="cart-list-ads" key={index}>

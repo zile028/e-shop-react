@@ -4,15 +4,20 @@ import { useSelector } from "react-redux";
 import CartProduct from "../component/CartProduct";
 import Checkout from "../component/Checkout";
 import Header from "../component/Header";
+import { useDelayUnmount } from "../hooks/useDelayUnmount";
 
 const intitialTotal = { price: null, item: null, quantity: null };
 
 function CartPage({ removeFromCart, clearCart }) {
   const { cart } = useSelector((state) => state.cartStore);
-
   const [total, setTotal] = useState(intitialTotal);
-  const [showCheckout, setShowCheckout] = useState(false);
+
   const redirect = useNavigate();
+
+  const [isMounted, setIsMounted] = useState(false);
+  const renderChild = useDelayUnmount(isMounted, 300);
+  const mountedStyle = { animation: "inRigth 1000ms linear" };
+  const unmountedStyle = { animation: "fadeOut 300ms linear" };
 
   useEffect(() => {
     cart.length === 0 && redirect("/shop");
@@ -40,8 +45,11 @@ function CartPage({ removeFromCart, clearCart }) {
 
   return (
     <>
-      {showCheckout && (
-        <Checkout setShowCheckout={setShowCheckout} clearCart={clearCart} />
+      {renderChild && (
+        <Checkout
+          style={isMounted ? mountedStyle : unmountedStyle}
+          setIsMounted={setIsMounted}
+        />
       )}
       <Header title={"my cart"} />
       <section className="cart-page container py-5">
@@ -59,7 +67,7 @@ function CartPage({ removeFromCart, clearCart }) {
             <li className="list-group-item">
               <button
                 className="btn btn-danger w-100"
-                onClick={() => setShowCheckout(true)}
+                onClick={() => setIsMounted(true)}
               >
                 CHECKOUT
               </button>

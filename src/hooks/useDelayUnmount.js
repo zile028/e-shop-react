@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 export const useDelayUnmount = (isMounted, delayTime) => {
   const [shouldRender, setShouldRender] = useState(false);
-
   useEffect(() => {
     let timer = null;
     if (isMounted && !shouldRender) {

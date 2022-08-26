@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { clearCart } from "../redux/cartSlice";
 
-function Checkout({ setShowCheckout, clearCart }) {
+function Checkout({ style, setIsMounted }) {
   const [userData, setUserData] = useState({
     fullName: "",
     phone: "",
@@ -12,6 +14,7 @@ function Checkout({ setShowCheckout, clearCart }) {
   const [isValid, setIsValid] = useState(true);
   const [isFinish, setIsFinish] = useState(false);
   const redirect = useNavigate();
+  const dispatch = useDispatch();
 
   const onInputHandler = (e) => {
     let copyUserData = { ...userData };
@@ -32,8 +35,7 @@ function Checkout({ setShowCheckout, clearCart }) {
       setIsValid(true);
       setIsFinish(true);
       setTimeout(() => {
-        setShowCheckout(false);
-        clearCart();
+        dispatch(clearCart());
         redirect("/");
       }, 2000);
     }
@@ -45,7 +47,7 @@ function Checkout({ setShowCheckout, clearCart }) {
         validateData();
         break;
       case "cancel":
-        setShowCheckout(false);
+        setIsMounted(false);
         break;
       default:
         return;
@@ -57,7 +59,7 @@ function Checkout({ setShowCheckout, clearCart }) {
       {isFinish ? (
         <div className="alert alert-success">Successfully!</div>
       ) : (
-        <form>
+        <form style={style}>
           <input
             type="text"
             name="fullName"

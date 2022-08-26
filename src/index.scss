@@ -218,13 +218,13 @@ footer {
     width: 280px;
     gap: 10px;
     position: relative;
-    left: 100%;
+    left: 0;
 
     transform-origin: left bottom;
-    animation-name: from-left;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
+    // animation-name: from-left;
+    // animation-duration: 1s;
+    // animation-timing-function: linear;
+    // animation-fill-mode: forwards;
 
     input {
       width: 100%;
@@ -234,7 +234,7 @@ footer {
     }
   }
 
-  @keyframes from-left {
+  @keyframes inRigth {
     0% {
       left: 100%;
       transform: skewX(-20deg);
@@ -250,6 +250,13 @@ footer {
     100% {
       left: 0;
       transform: skewX(0deg);
+    }
+  }
+  @keyframes fadeOut {
+    // from {
+    // }
+    to {
+      opacity: 0;
     }
   }
 }

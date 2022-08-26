@@ -8,9 +8,9 @@ import { useDelayUnmount } from "../hooks/useDelayUnmount";
 
 function Navigation() {
   const { cart } = useSelector((state) => state.cartStore);
-  const [isMounted, setIsMounted] = useState(false);
   const loc = useLocation();
 
+  const [isMounted, setIsMounted] = useState(false);
   const shouldRenderChild = useDelayUnmount(isMounted, 300);
   const mountedStyle = { animation: "inAnimation 300ms linear" };
   const unmountedStyle = { animation: "outAnimation 310ms linear" };
