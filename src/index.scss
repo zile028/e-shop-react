@@ -6,6 +6,13 @@ section {
   min-height: 50vh;
 }
 
+button {
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background-color: #000;
+  color: #fff;
+}
 /***** navbar ****/
 
 .navbar {
