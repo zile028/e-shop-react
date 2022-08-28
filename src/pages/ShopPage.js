@@ -9,15 +9,15 @@ import { usePagination } from "../hooks/CustomHooks";
 function ShopPage() {
   const { products } = useSelector((state) => state.productsStore);
   const [searchParam, setSearchParam] = useSearchParams();
-  const { item, boxes } = usePagination({
+  const { item, boxes, current, setConfig } = usePagination({
     currentPage: searchParam.get("page"),
-    perPage: 4,
+    perPage: 10,
     totalItem: products,
   });
 
   useEffect(() => {
-    console.log(item);
-  }, [item]);
+    setSearchParam({ page: current });
+  }, [current]);
 
   return (
     <>
@@ -29,6 +29,18 @@ function ShopPage() {
               return <Product product={el} key={el.id} />;
             })}
         </div>
+        <select
+          onChange={(e) => {
+            setConfig((prev) => {
+              return { ...prev, perPage: parseInt(e.target.value) };
+            });
+            console.log(e.target.value);
+          }}
+        >
+          <option value="4">4</option>
+          <option value="8">8</option>
+          <option value="12">12</option>
+        </select>
         {boxes}
         {/* <Paggination setSearchParam={setSearchParam} /> */}
       </section>
