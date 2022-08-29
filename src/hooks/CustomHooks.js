@@ -7,7 +7,6 @@ export const usePagination = ({ currentPage, totalItem, perPage }) => {
   const [current, setCurrent] = useState(currentPage);
 
   useEffect(() => {
-    console.log(config);
     let copyTotalItem = [...totalItem];
     let offset = (currentPage - 1) * config.perPage;
     setBoxes(
