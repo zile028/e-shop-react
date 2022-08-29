@@ -1,14 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-function usePagination({ currentPage, totalItem, perPage }) {
-  const [renderItem, setRenderItem] = useState([]);
+export const DOTS = "...";
+const range = (start, end) => {
+  let length = end - start + 1;
+  return Array.from({ length }, (el, index) => index + start);
+};
 
-  useEffect(() => {
-    let copyTotalItem = [...totalItem];
-    let offset = (currentPage - 1) * perPage;
-    setRenderItem(copyTotalItem.splice(offset, perPage));
-  }, [totalItem, currentPage, perPage]);
-  return renderItem;
-}
+export const usePagination = ({
+  totalCount,
+  pageSize,
+  siblingCount = 1,
+  currentPage,
+}) => {
+  const paginationRange = useMemo(() => {
+    const totalPageCount = Math.ceil(totalCount / pageSize);
+
+    const totalPageNumbers = siblingCount + 5;
+
+    if (totalPageNumbers >= totalPageCount) {
+      return range(1, totalPageCount);
+    }
+  }, [totalCount, pageSize, siblingCount, currentPage]);
+  return paginationRange;
+};
 
 export default usePagination;

@@ -1,24 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import usePagination from "../../hooks/usePagination";
 import "./paggination.scss";
 
-function Paggination({ setSearchParam }) {
-  const { products } = useSelector((state) => state.productsStore);
-  const setPage = (num) => {
-    setSearchParam({ page: num });
-  };
-
-  const numBox = () => {
-    let tempBox = [];
-    for (let i = 0; i < Math.ceil(products.length / 8); i++) {
-      tempBox.push(
-        <button key={i} className="box" onClick={() => setPage(i + 1)}>
-          {i + 1}
-        </button>
-      );
-    }
-    return tempBox;
-  };
+function Paggination({ totalPge, currentPage, onChangePage, siblingCount }) {
+  const pagination = usePagination();
 
   return (
     <div className="pagination-wrapper">
