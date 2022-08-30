@@ -1,84 +1,85 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useSearchParams} from "react-router-dom";
 import Header from "../component/Header";
-import Paggination from "../component/Paggination/Paggination";
+import Pagination from "../component/Pagination/Pagination";
 import Product from "../component/Product";
 
-function ShopPage() {
-  const { products } = useSelector((state) => state.productsStore);
-  const [searchParam, setSearchParam] = useSearchParams({
-    pageSize: 8,
-    page: 1,
-  });
-  const currentPageParam = parseInt(searchParam.get("page"));
-  const pageSizeParam = parseInt(searchParam.get("pageSize"));
-  const [pageSize, setPageSize] = useState(pageSizeParam);
+const initSearch = {pageSize: 8, page: 1}
 
-  useEffect(() => {
-    let search = Object.fromEntries(searchParam);
-    if (!search.page) {
-      search.page = 1;
-    }
-    if (!search.pageSize) {
-      search.pageSize = 4;
-    }
-    setSearchParam(search);
-  }, []);
-
-  const changePage = (page) => {
-    let search = Object.fromEntries(searchParam);
-    search.page = page;
-    setSearchParam(search);
-  };
-
-  const spliceProduct = () => {
-    let copyProducts = [...products];
-    let offset = (currentPageParam - 1) * pageSize;
-    let renderItem = copyProducts.splice(offset, pageSize);
-    return renderItem;
-  };
-
-  return (
-    <>
-      <Header title={"shop"} />
-
-      <section className="products container py-5">
-        <div className="products-wraper products-row-4">
-          {spliceProduct().map((el) => {
-            return <Product product={el} key={el.id} />;
-          })}
-        </div>
-
-        <select
-          className="pagination-perPage"
-          onChange={(e) => {
-            setSearchParam({ page: 1 });
-            setPageSize(parseInt(e.target.value));
-          }}
-          value={pageSize}
-        >
-          {products.map((el, ind) => {
-            if (ind % 4 === 0 && ind > 0 && ind <= products.length / 2) {
-              return (
-                <option key={ind} value={ind}>
-                  {ind}
-                </option>
-              );
-            }
-          })}
-          <option value={products.length}>All</option>
-        </select>
-        <Paggination
-          currentPage={currentPageParam}
-          totalPage={products.length}
-          pageSize={{ pageSize, setPageSize }}
-          onChangePage={changePage}
-          siblingCount={1}
-        />
-      </section>
-    </>
-  );
+function getSearch(arg) {
+	return Object.fromEntries(arg)
 }
+
+function ShopPage() {
+	const {products} = useSelector((state) => state.productsStore);
+	const [searchParam, setSearchParam] = useSearchParams(initSearch);
+	const [pageParam, setPageParam] = useState({initSearch});
+
+	useEffect(() => {
+		let search = getSearch(searchParam);
+		if (!search.pageSize) {
+			search.pageSize = 4;
+		}
+		if (!search.page) {
+			search.page = 1;
+		}
+		setSearchParam(search);
+		setPageParam(search)
+	}, []);
+
+	useEffect(() => {
+		setPageParam(getSearch(searchParam))
+	}, [searchParam])
+
+	const changePage = (page) => {
+		let search = getSearch(searchParam);
+		search.page = page;
+		setSearchParam(search);
+	};
+
+	const onChangeSize = (num) => {
+		let search = getSearch(searchParam);
+		setPageParam({...pageParam, pageSize: num})
+		setSearchParam({...search, pageSize: num})
+	}
+
+	const spliceProduct = () => {
+		let copyProducts = [...products];
+		let offset = (pageParam.page - 1) * pageParam.pageSize;
+		return copyProducts.splice(offset, pageParam.pageSize);
+	};
+
+	return (
+	  <>
+		  <Header title={"shop"}/>
+		  <section className="products container py-5">
+			  <Pagination
+				currentPage={parseInt(searchParam.get("page"))}
+				totalPage={products.length}
+				pageSize={parseInt(searchParam.get("pageSize"))}
+				onChangePage={changePage}
+				onChangeSize={onChangeSize}
+				siblingCount={1}
+			  />
+			  
+			  <div className="products-wraper products-row-4">
+				  {spliceProduct().map((el) => {
+					  return <Product product={el} key={el.id}/>;
+				  })}
+			  </div>
+			  <Pagination
+				currentPage={parseInt(searchParam.get("page"))}
+				totalPage={products.length}
+				pageSize={parseInt(searchParam.get("pageSize"))}
+				onChangePage={changePage}
+				onChangeSize={onChangeSize}
+				siblingCount={1}
+			  />
+		  </section>
+	  </>
+	);
+}
+
 
 export default ShopPage;

@@ -2,8 +2,9 @@
   &-wrapper {
     width: 100%;
     padding: 0 10%;
-    margin-top: 20px;
+    margin: 20px auto;
   }
+
   &-perPage {
     border-radius: 5px;
     outline: none;
@@ -11,14 +12,17 @@
     background-color: #000;
     color: #fff;
   }
+
   &-boxes {
     display: flex;
     width: 100%;
     justify-content: center;
     gap: 10px;
+
     .box {
       height: 2em;
       width: 2em;
+
       &.active {
         background-color: tomato;
       }
