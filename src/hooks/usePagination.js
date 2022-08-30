@@ -1,4 +1,4 @@
-import {useEffect, useMemo} from "react";
+import { useMemo } from "react";
 
 export const DOTS = "...";
 const range = (start, end) => {
@@ -12,7 +12,6 @@ export const usePagination = ({
   siblingCount = 1, //number of page are display around current page, default is 1
   currentPage,
 }) => {
-
   if (siblingCount < 1) {
     siblingCount = 1;
   }
@@ -63,6 +62,7 @@ export const usePagination = ({
       let middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
+    // debugger;
   }, [totalCount, pageSize, siblingCount, currentPage]);
 
   return paginationRange;
