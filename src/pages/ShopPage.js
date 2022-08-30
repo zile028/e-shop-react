@@ -7,18 +7,35 @@ import Product from "../component/Product";
 
 function ShopPage() {
   const { products } = useSelector((state) => state.productsStore);
-  const [searchParam, setSearchParam] = useSearchParams();
-  const currentPage = parseInt(searchParam.get("page"));
-  const [perPage, setPerPage] = useState(8);
+  const [searchParam, setSearchParam] = useSearchParams({
+    pageSize: 8,
+    page: 1,
+  });
+  const currentPageParam = parseInt(searchParam.get("page"));
+  const pageSizeParam = parseInt(searchParam.get("pageSize"));
+  const [pageSize, setPageSize] = useState(pageSizeParam);
+
+  useEffect(() => {
+    let search = Object.fromEntries(searchParam);
+    if (!search.page) {
+      search.page = 1;
+    }
+    if (!search.pageSize) {
+      search.pageSize = 4;
+    }
+    setSearchParam(search);
+  }, []);
 
   const changePage = (page) => {
-    setSearchParam({ page });
+    let search = Object.fromEntries(searchParam);
+    search.page = page;
+    setSearchParam(search);
   };
 
   const spliceProduct = () => {
     let copyProducts = [...products];
-    let offset = (currentPage - 1) * perPage;
-    let renderItem = copyProducts.splice(offset, perPage);
+    let offset = (currentPageParam - 1) * pageSize;
+    let renderItem = copyProducts.splice(offset, pageSize);
     return renderItem;
   };
 
@@ -37,9 +54,9 @@ function ShopPage() {
           className="pagination-perPage"
           onChange={(e) => {
             setSearchParam({ page: 1 });
-            setPerPage(parseInt(e.target.value));
+            setPageSize(parseInt(e.target.value));
           }}
-          value={perPage}
+          value={pageSize}
         >
           {products.map((el, ind) => {
             if (ind % 4 === 0 && ind > 0 && ind <= products.length / 2) {
@@ -53,9 +70,9 @@ function ShopPage() {
           <option value={products.length}>All</option>
         </select>
         <Paggination
-          currentPage={currentPage}
+          currentPage={currentPageParam}
           totalPage={products.length}
-          perPage={perPage}
+          pageSize={{ pageSize, setPageSize }}
           onChangePage={changePage}
           siblingCount={1}
         />

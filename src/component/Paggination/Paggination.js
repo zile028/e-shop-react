@@ -4,13 +4,13 @@ import "./paggination.scss";
 function Paggination({
   totalPage,
   currentPage,
-  perPage,
+  pageSize,
   onChangePage,
   siblingCount,
 }) {
   const paginationRange = usePagination({
     currentPage: parseInt(currentPage),
-    pageSize: perPage,
+    pageSize: pageSize.pageSize,
     totalCount: totalPage,
     siblingCount: siblingCount,
   });
@@ -31,16 +31,16 @@ function Paggination({
   return (
     <div className="pagination-wrapper">
       <div className="pagination-boxes">
-        {/* <select
+        <select
           className="pagination-perPage"
           onChange={(e) => {
-            setSearchParam({ page: 1 });
-            setPerPage(parseInt(e.target.value));
+            currentPage = 1;
+            pageSize.setPageSize(parseInt(e.target.value));
           }}
-          value={perPage}
+          value={pageSize.pageSize}
         >
-          {products.map((el, ind) => {
-            if (ind % 4 === 0 && ind > 0 && ind <= products.length / 2) {
+          {Array(totalPage).map((el, ind) => {
+            if (ind % 4 === 0 && ind > 0 && ind <= totalPage / 2) {
               return (
                 <option key={ind} value={ind}>
                   {ind}
@@ -48,8 +48,8 @@ function Paggination({
               );
             }
           })}
-          <option value={products.length}>All</option>
-        </select> */}
+          <option value={totalPage}>All</option>
+        </select>
         <button
           className="box"
           disabled={currentPage === 1}
