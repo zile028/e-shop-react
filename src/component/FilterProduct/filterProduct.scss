@@ -1,0 +1,16 @@
+.filter {
+  &-wrapper {
+    position: relative;
+  }
+  &-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(#000, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+  }
+}
+[class*="filter-option-"] {
+  margin-bottom: 30px;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import FilterProduct from "../component/FilterProduct/FilterProduct";
 import Header from "../component/Header";
 import Pagination from "../component/Pagination/Pagination";
 import Product from "../component/Product";
@@ -54,15 +55,17 @@ function ShopPage() {
     <>
       <Header title={"shop"} />
       <section className="products container py-5">
-        <Pagination
-          currentPage={parseInt(searchParam.get("page"))}
-          totalPage={products.length}
-          pageSize={parseInt(searchParam.get("pageSize"))}
-          onChangePage={changePage}
-          onChangeSize={onChangeSize}
-          siblingCount={1}
-        />
-
+        <div className="products-navigate">
+          <FilterProduct />
+          <Pagination
+            currentPage={parseInt(searchParam.get("page"))}
+            totalPage={products.length}
+            pageSize={parseInt(searchParam.get("pageSize"))}
+            onChangePage={changePage}
+            onChangeSize={onChangeSize}
+            siblingCount={1}
+          />
+        </div>
         <div className="products-wraper products-row-4">
           {spliceProduct().map((el) => {
             return <Product product={el} key={el.id} />;

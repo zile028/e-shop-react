@@ -12,6 +12,7 @@ button {
   border: none;
   background-color: #000;
   color: #fff;
+  padding: 10px 20px;
 }
 /***** navbar ****/
 
@@ -66,9 +67,21 @@ header {
   h2 {
     text-transform: uppercase;
   }
+  &-navigate {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    .pagination-wrapper {
+      // flex: 1;
+    }
+    .filter-wrapper {
+      flex: 1;
+    }
+  }
   &-wraper {
     display: grid;
     gap: 15px;
+    margin: 20px 0;
     .product-card {
       display: flex;
       flex-direction: column;
