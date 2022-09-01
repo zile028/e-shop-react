@@ -1,11 +1,19 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import "./filterProduct.scss";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setFiltered} from "../../redux/productsSlice";
 
 function FilterProduct() {
-	const [filter, setFilter] = useState({});
-	const dispatch = useDispatch
+	const [filter, setFilter] = useState({
+		category: null,
+		priceLimit: 0
+	});
+	const dispatch = useDispatch()
+	const {filtered} = useSelector(state => state.productsStore)
+
+	useEffect(() => {
+		console.log(filtered)
+	}, [filtered])
 
 	function applyFilter() {
 		dispatch(setFiltered(filter))
@@ -30,12 +38,12 @@ function FilterProduct() {
 				  <option value={"default"} disabled>
 					  Category
 				  </option>
-				  <option value="Phone">Phone</option>
-				  <option value="Laptop">Laptop</option>
+				  <option value="smartphones">smartphones</option>
+				  <option value="laptops">laptops</option>
 			  </select>
 			  <div className="filter-options-price">
-				  <span>Price less then:</span><span>0$</span>
-				  <input type="range" min={0} max={300000} name="priceLimit" onChange={onInputHandler}/>
+				  <span>Price less then:</span><span>{filter.priceLimit}$</span>
+				  <input type="range" min={0} max={3000} name="priceLimit" onChange={onInputHandler}/>
 			  </div>
 			  <button onClick={applyFilter}>Apply</button>
 		  </div>
