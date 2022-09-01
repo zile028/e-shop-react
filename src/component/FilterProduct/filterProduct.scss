@@ -2,15 +2,51 @@
   &-wrapper {
     position: relative;
   }
+
   &-options {
+    max-width: 300px;
+    width: 100%;
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: rgba(#000, 0.7);
+    background-color: rgba(#ddd, 0.9);
+    margin-top: 10px;
+    box-shadow: 0 0 3px 3px #000;
     padding: 30px;
     border-radius: 10px;
+
+    & > * {
+      margin-bottom: 30px;
+      width: 100%;
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+
+    &-price {
+      text-align: right;
+      display: flex;
+      flex-wrap: wrap;
+
+      input {
+        width: 100%;
+      }
+
+      span {
+        width: auto;
+
+        &:first-child {
+          flex: 1;
+          text-align: left;
+        }
+
+        &:last-child {
+          flex: 1;
+        }
+      }
+
+    }
   }
 }
-[class*="filter-option-"] {
-  margin-bottom: 30px;
-}
+
