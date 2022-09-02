@@ -35,10 +35,11 @@ function Pagination({
           }}
           value={pageSize}
         >
+          <option value={4}>4</option>
           {Array(totalPage)
             .fill("")
             .map((el, ind) => {
-              if (ind % 4 === 0 && ind > 0 && ind <= totalPage / 2) {
+              if (ind % 4 === 0 && ind > 4 && ind <= totalPage / 2) {
                 return (
                   <option key={ind} value={ind}>
                     {ind}

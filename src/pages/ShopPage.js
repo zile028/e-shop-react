@@ -13,7 +13,7 @@ function getSearch(arg) {
 }
 
 function ShopPage() {
-  const products = useSelector((state) => state.productsStore).filtered;
+  const { filtered } = useSelector((state) => state.productsStore);
   const [searchParam, setSearchParam] = useSearchParams(initSearch);
   const [pageParam, setPageParam] = useState(initSearch);
 
@@ -30,6 +30,7 @@ function ShopPage() {
   }, [searchParam, setSearchParam]);
 
   useEffect(() => {
+    console.log(getSearch(searchParam));
     setPageParam(getSearch(searchParam));
   }, [searchParam]);
 
@@ -46,7 +47,7 @@ function ShopPage() {
   };
 
   const spliceProduct = () => {
-    let copyProducts = [...products];
+    let copyProducts = [...filtered];
     let offset = (pageParam.page - 1) * pageParam.pageSize;
     return copyProducts.splice(offset, pageParam.pageSize);
   };
@@ -59,7 +60,7 @@ function ShopPage() {
           <FilterProduct />
           <Pagination
             currentPage={parseInt(searchParam.get("page"))}
-            totalPage={products.length}
+            totalPage={filtered.length}
             pageSize={parseInt(searchParam.get("pageSize"))}
             onChangePage={changePage}
             onChangeSize={onChangeSize}
@@ -74,7 +75,7 @@ function ShopPage() {
         <div className="products-navigate">
           <Pagination
             currentPage={parseInt(pageParam.page)}
-            totalPage={products.length}
+            totalPage={filtered.length}
             pageSize={parseInt(pageParam.pageSize)}
             onChangePage={changePage}
             onChangeSize={onChangeSize}
