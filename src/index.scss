@@ -71,6 +71,7 @@ header {
     display: flex;
     gap: 10px;
     align-items: center;
+    justify-content: end;
     .pagination-wrapper {
       // flex: 1;
     }
@@ -422,5 +423,23 @@ footer {
   100% {
     transform: scale(1, 0);
     opacity: 0;
+  }
+}
+
+@keyframes inFilter {
+  from {
+    transform: scale(0, 1);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes outFilter {
+  from {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(0, 1);
   }
 }
