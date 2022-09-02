@@ -13,7 +13,19 @@ button {
   background-color: #000;
   color: #fff;
   padding: 10px 20px;
+
+  &.btn {
+    &-black {
+      background-color: #000;
+    }
+
+    &-tomato {
+      background-color: tomato;
+      color: #000;
+    }
+  }
 }
+
 /***** navbar ****/
 
 .navbar {
@@ -24,14 +36,18 @@ button {
       height: 70px;
     }
   }
+
   &-collapse {
     position: relative;
   }
+
   &-nav {
     font-size: 1.2rem;
   }
+
   .cart-icon {
     position: relative;
+
     span {
       position: absolute;
       top: -2px;
@@ -56,6 +72,7 @@ header {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+
   h1 {
     text-transform: uppercase;
     color: #fff;
@@ -67,22 +84,27 @@ header {
   h2 {
     text-transform: uppercase;
   }
+
   &-navigate {
     display: flex;
     gap: 10px;
     align-items: center;
     justify-content: end;
+
     .pagination-wrapper {
       // flex: 1;
     }
+
     .filter-wrapper {
       flex: 1;
     }
   }
+
   &-wraper {
     display: grid;
     gap: 15px;
     margin: 20px 0;
+
     .product-card {
       display: flex;
       flex-direction: column;
@@ -92,11 +114,13 @@ header {
       box-shadow: 0 0 8px #000;
       padding: 10px;
       text-align: center;
+
       img {
         width: 100%;
         height: 200px;
         object-fit: contain;
       }
+
       h4 {
         flex: 1;
         margin: 15px auto;
@@ -108,9 +132,11 @@ header {
     &-3 {
       grid-template-columns: repeat(3, 1fr);
     }
+
     &-4 {
       grid-template-columns: repeat(4, 1fr);
     }
+
     &-5 {
       grid-template-columns: repeat(5, 1fr);
     }
@@ -120,17 +146,21 @@ header {
 footer {
   background-color: #000;
   color: #fff;
+
   .container {
     display: grid;
     grid-template-columns: 3fr 1fr 2fr;
     grid-template-rows: auto 1fr;
     gap: 10px;
   }
+
   p {
     margin-right: 20px;
   }
+
   .list-group {
     list-style: none;
+
     li {
       line-height: 2;
     }
@@ -145,6 +175,7 @@ footer {
       border-radius: 10px;
       padding: 20px;
     }
+
     .col {
       & > div {
         display: flex;
@@ -154,6 +185,7 @@ footer {
         padding-top: 20px;
         justify-content: flex-start;
       }
+
       & > img {
         width: 100%;
         height: 400px;
@@ -162,9 +194,11 @@ footer {
       }
     }
   }
+
   .product-image {
     flex: 1;
     max-width: 150px;
+
     img {
       width: 100%;
       height: 100px;
@@ -172,6 +206,7 @@ footer {
       cursor: pointer;
     }
   }
+
   .table {
     tr {
       td:last-child {
@@ -187,27 +222,33 @@ footer {
   &-page {
     display: flex;
     align-items: flex-start;
+
     aside {
       flex: 1;
       max-width: 300px;
       margin-right: 20px;
+
       li {
         font-weight: 700;
+
         span {
           float: right;
         }
       }
     }
+
     article {
       flex: 1;
     }
   }
+
   &-product {
     img {
       height: 150px;
       width: 200px;
       object-fit: contain;
     }
+
     p {
       margin: 0;
       display: flex;
@@ -230,6 +271,7 @@ footer {
   background-color: rgba(#000, 0.5);
   z-index: 2;
   overflow: hidden;
+
   form {
     display: flex;
     flex-wrap: wrap;
@@ -250,6 +292,7 @@ footer {
     input {
       width: 100%;
     }
+
     button {
       flex: 1;
     }
@@ -289,6 +332,7 @@ footer {
       resize: none;
     }
   }
+
   &-info {
     display: grid;
     grid-template-areas:
@@ -296,36 +340,44 @@ footer {
       "phone phone";
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+
     & > div {
       background-color: #fff;
       padding: 20px;
       border-radius: 10px;
       text-align: center;
     }
+
     .box {
       &-address {
         grid-area: address;
       }
+
       &-email {
         grid-area: email;
       }
+
       &-phone {
         grid-area: phone;
       }
     }
+
     h3 {
       font-size: 1.5rem;
       font-weight: 600;
       text-transform: uppercase;
     }
+
     p {
       margin: 0;
     }
+
     a {
       display: block;
       text-decoration: none;
       color: #000;
     }
+
     .icon {
       i {
         font-size: 1.5rem;
@@ -352,6 +404,7 @@ footer {
   height: 300px;
   width: 450px;
   transform-origin: top center;
+
   &-ads {
     display: grid;
     grid-template-columns: 50px 1fr 20px;
@@ -359,15 +412,18 @@ footer {
     gap: 5px;
     align-items: center;
     padding: 5px 0;
+
     &-wrapper {
       overflow-y: auto;
       flex: 1;
     }
+
     p {
       margin: 0;
       font-size: 1rem;
       line-height: 1;
     }
+
     div {
       &:first-of-type {
         p {
@@ -375,6 +431,7 @@ footer {
           font-weight: 600;
         }
       }
+
       &:last-of-type {
         display: grid;
         grid-template-columns: 1fr;
@@ -383,6 +440,7 @@ footer {
       }
     }
   }
+
   & > a {
     background-color: tomato;
     display: block;
@@ -395,6 +453,7 @@ footer {
     text-align: center;
     font-weight: 700;
   }
+
   img {
     width: 100%;
     max-height: 70px;

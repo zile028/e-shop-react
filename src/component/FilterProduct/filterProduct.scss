@@ -4,6 +4,8 @@
   }
 
   &-options {
+    display: flex;
+    flex-wrap: wrap;
     max-width: 300px;
     width: 100%;
     position: absolute;
@@ -14,6 +16,13 @@
     box-shadow: 0 0 3px 3px #000;
     padding: 30px;
     border-radius: 10px;
+    gap: 10px;
+
+    button {
+      flex: 1;
+      margin-bottom: 0;
+
+    }
 
     & > * {
       margin-bottom: 30px;
